@@ -27,7 +27,7 @@
 		"@types/node": "^20",
 		"@types/react": "^19",
 		"@types/react-dom": "^19",
-		"sarvam-localize": "^0.0.2",
+		"sarvam-localize": "^0.0.6",
 		"tailwindcss": "^4",
 		"typescript": "^5"
 	}
