@@ -1,13 +1,17 @@
 import type { NextConfig } from "next";
 import createNextIntlPlugin from "next-intl/plugin";
+import createMDX from '@next/mdx'
 import path from "path";
 
 const nextConfig: NextConfig = {
-	/* config options here */
+	pageExtensions: ['js', 'jsx', 'md', 'mdx', 'ts', 'tsx'],
 	turbopack: {
 		root: path.join(__dirname, "./"),
 	},
+	/* config options here */
 };
 
 const withNextIntl = createNextIntlPlugin();
-export default withNextIntl(nextConfig);
+const withMDX = createMDX()
+
+export default withNextIntl(withMDX(nextConfig));
