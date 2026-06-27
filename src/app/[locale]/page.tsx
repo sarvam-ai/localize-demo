@@ -38,7 +38,7 @@ export default function Home() {
 						</Link>
 					</Button>
 					<Button variant={"outline"} asChild>
-						<Link href={"https://next-intl.dev/"}>{t("docs")}</Link>
+						<Link href={"/docs/something"}>{t("docs")}</Link>
 					</Button>
 				</div>
 			</main>

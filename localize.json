@@ -1,0 +1,23 @@
+{
+    "markdown": {
+        "model": "sarvam-105b",
+        "source": "src/app/docs",
+        "destination": "src/docs",
+        "fileType": "page.mdx",
+        "dataFile": "localize.json",
+        "to": [
+            "ml-IN",
+            "ta-IN"
+        ]
+    },
+    "translate": {
+        "model": "sarvam-translate:v1",
+        "dist": "locales",
+        "from": "en",
+        "extension": "json",
+        "to": [
+            "ml-IN",
+            "ta-IN"
+        ]
+    }
+}

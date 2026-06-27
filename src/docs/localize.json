@@ -1,6 +1,8 @@
 {
-	"docs": [{
-		"id": "something",
-		"languages": ["ml-IN"]
-	}]
+	"translated": [
+		{
+			"id": "something",
+			"languages": ["ta-IN", "ml-IN"]
+		}
+	]
 }

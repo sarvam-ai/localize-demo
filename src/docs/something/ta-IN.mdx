@@ -1,0 +1,159 @@
+<a href="https://github.com/sarvam-ai/localize">
+    <img alt="cover" src="https://github.com/sarvam-ai/localize/blob/main/cover.png?raw=true" />
+</a>
+
+# சர்வம லோக்கலைஸ்
+
+சர்வம AI மொழிபெயர்ப்பு மூலம் இயங்கும் இணையதள இடமாக்கல் CLI.
+
+`sarvam-localize` என்பது உள்ளமைக்கப்பட்ட திறவுகோல் அமைப்பு மற்றும் மாறிகளைப் பாதுகாக்கும் அதே வேளையில், இந்திய மொழிகளில் JSON இடமாக்கல் கோப்புகளை மொழிபெயர்க்க உதவுகிறது.
+
+## தேவைகள்
+
+உங்கள் சாவியை இங்கிருந்து பெறுங்கள்: https://dashboard.sarvam.ai.
+
+அதை `.env` கோப்பில் ஒட்டவும்
+
+```bash
+SARVAM_API_KEY=your_api_key
+```
+
+## நிறுவுதல்
+
+நிறுவாமல் இயக்க:
+
+```bash
+npx sarvam-localize
+```
+
+## உள்ளமைப்புக் கோப்பு
+
+உள்ளமைப்புக் கோப்பை உருவாக்க அல்லது புதுப்பிக்க `init`-ஐ இயக்கவும் (இயல்புநிலை: `localize.json`).
+
+```jsonc
+{
+	"translate": {
+		"model": "mayura:v1",
+		"dist": "locales",
+		"from": "en-IN",
+		"extension": "json",
+		"to": ["ml-IN", "ta-IN"]
+		// அலலத பயனபடததவம: "all": true
+	}
+}
+```
+
+## கட்டளைகள்
+
+### `init`
+
+உங்கள் இடமாக்கல் பணிப்பாய்விற்கான ஊடாடும் அமைப்பு.
+
+இது உங்கள் `translate` உள்ளமைப்பைத் தயார் செய்து, பின்னர் உடனடியாக `translate`-ஐ இயக்க விரும்புகிறீர்களா என்று கேட்கிறது.
+
+```bash
+npx sarvam-localize init
+```
+
+### `translate`
+
+மூல இடமாக்கல் கோப்பை இலக்கு இடமாக்கல் கோப்புகளாகத் தொகுதியாக மொழிபெயர்க்கிறது.
+
+```bash
+npx sarvam-localize translate
+npx sarvam-localize translate --from en-IN --to hi-IN ta-IN ml-IN
+npx sarvam-localize translate --from en-IN --all
+npx sarvam-localize translate --from en-IN --all --retranslate
+```
+
+#### விருப்பங்கள்
+
+- `--dist <folder>`: இடமாக்கல் அடைவு (இயல்புநிலை: `locales`)
+- `--from <code>`: மூல மொழி குறியீடு (இயல்புநிலை: `en-IN`)
+- `--to <code...>`: இலக்கு மொழி குறியீடுகள் (அணி)
+- `--all`: ஆதரிக்கப்படும் அனைத்து இலக்கு மொழிகளையும் சேர்க்கவும்
+- `--retranslate`: இலக்கு ஏற்கனவே மதிப்புகளைக் கொண்டிருந்தாலும் திறவுகோல்களை மீண்டும் மொழிபெயர்க்கவும்
+- `--extension <json>`: கோப்பு நீட்டிப்பு (தற்போது `json` மட்டுமே)
+
+### `sync`
+
+ஒரு மூலக் கோப்பை ஒரு இலக்குக் கோப்பாக மொழிபெயர்க்கிறது.
+
+```bash
+npx sarvam-localize sync --source locales/en-IN.json --target locales/hi-IN.json
+npx sarvam-localize sync --source locales/en-IN.json --target locales/ta-IN.json --retranslate
+```
+
+#### விருப்பங்கள்
+
+- `--source <path>`: மூல இடமாக்கல் கோப்பு பாதை (எ.கா. `locales/en-IN.json`)
+- `--target <path>`: இலக்கு இடமாக்கல் கோப்பு பாதை (எ.கா. `locales/hi-IN.json`)
+- `--retranslate`: ஏற்கனவே மொழிபெயர்க்கப்பட்ட திறவுகோல்களை மாற்றியமைக்கவும்
+
+இரண்டு கோப்புப் பெயர்களிலும் ஆதரிக்கப்படும் மொழி குறியீடு மற்றும் `.json` நீட்டிப்பு இருக்க வேண்டும்.
+
+### இடமாக்கல் கோப்பு வடிவம்
+
+எடுத்துக்காட்டு: உள்ளீடு (`en-IN.json`)
+
+மாறிகள் மற்றும் உள்ளமைக்கப்பட்ட JSON ஆதரிக்கப்படுகின்றன.
+
+```jsonc
+{
+	"title": "இநதயவறக வரவறகறம",
+	"home": {
+		"greeting": "வணககம {{variable}}, நஙகள எபபட இரககறரகள?", // React i18next
+		"farewell": "வணககம {variable}, வரவல சநதபபம!", // Vue i18n, React Intl
+		"thank_you": "உஙகள ஆதரவறக நனற %{variable}!", // Ruby i18n
+		"cta": "{$variable} பறற மலம அறய இஙக களக சயயவம" // Fluent
+	}
+}
+```
+
+NextJS & next-intl பயன்படுத்தி உருவாக்கப்பட்ட [டெமோ இணையதளத்தைப்](https://sarvam-localize.vercel.app) பார்க்கவும்
+
+### `mayura:v1` மூலம் ஆதரிக்கப்படும் மொழி குறியீடுகள்
+
+- `en-IN` (ஆங்கிலம் - இந்தியா)
+- `hi-IN` (இந்தி)
+- `bn-IN` (வங்காளம்)
+- `gu-IN` (குஜராத்தி)
+- `kn-IN` (கன்னடம்)
+- `ml-IN` (மலையாளம்)
+- `mr-IN` (மராத்தி)
+- `od-IN` (ஒடியா)
+- `pa-IN` (பஞ்சாபி)
+- `ta-IN` (தமிழ்)
+- `te-IN` (தெலுங்கு)
+
+### `sarvam-translate:v1` மூலம் ஆதரிக்கப்படும் மொழி குறியீடுகள்
+
+மேலே உள்ள அனைத்தும் மற்றும்:
+
+- `as-IN` (அசாமிய மொழி)
+- `ur-IN` (உருது)
+- `ne-IN` (நேபாளி)
+- `kok-IN` (கொங்கணி)
+- `ks-IN` (காஷ்மீரி)
+- `sd-IN` (சிந்தி)
+- `sa-IN` (சமஸ்கிருதம்)
+- `sat-IN` (சந்தாலி)
+- `mni-IN` (மணிப்புரி)
+- `brx-IN` (போடோ)
+- `mai-IN` (மைதிலி)
+- `doi-IN` (டாக்ரி)
+
+### திட்டக் கட்டமைப்பு (பொதுவானது)
+
+```text
+locales/
+  en-IN.json
+  hi-IN.json
+  ta-IN.json
+```
+
+## குறிப்புகள்
+
+- ஒரு இலக்குத் திறவுகோல் ஏற்கனவே இருந்தால், அது இயல்பாகத் தவிர்க்கப்படும்.
+- கட்டாயமாகப் புதுப்பிக்க `--retranslate`-ஐப் பயன்படுத்தவும்.
+- இயல்புநிலை உள்ளமைப்புக் கோப்புப் பெயர் `localize.
