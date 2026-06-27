@@ -2,160 +2,26 @@
     <img alt="cover" src="https://github.com/sarvam-ai/localize/blob/main/cover.png?raw=true" />
 </a>
 
-# സവർമ് ലോക്കലൈസ്
+# Sarvam Localize
 
-സവർമ് എഐ ട്രാൻസ്ലേഷൻ വഴി പ്രവർത്തിക്കുന്ന വെബ്സൈറ്റ് ലോക്കലൈസേഷൻ സിഎൽഐ.
+വെബ്സൈറ്റ് ലോക്കലൈസേഷൻ CLI സർവം AI ട്രാൻസ്ലേഷൻ വഴി പ്രവർത്തിക്കുന്നു.
 
-`sarvam-localize` ഇന്ത്യൻ ഭാഷകളിലുടനീളം JSON ലോക്കേൽ ഫയലുകൾ വിവർത്തനം ചെയ്യാൻ സഹായിക്കുന്നു, അതേസമയം നെസ്റ്റഡ് കീ ഘടനയും വേരിയബിളുകളും നിലനിർത്തുന്നു.
+`sarvam-localize` നിങ്ങളെ ഇന്ത്യൻ ഭാഷകളിലുടനീളം JSON ലോക്കേൽ & മാർക്ക്ഡൗൺ ഫയലുകൾ വിവർത്തനം ചെയ്യാൻ സഹായിക്കുന്നു, അതേസമയം നെസ്റ്റഡ് കീ ഘടനയും വേരിയബിളുകളും സംരക്ഷിക്കുന്നു.
 
 ## ആവശ്യകതകൾ
 
-https://dashboard.sarvam.ai-ൽ നിന്ന് നിങ്ങളുടെ കീ നേടുക.
+നിങ്ങളുടെ കീ ഇവിടെ നിന്ന് നേടുക: https://dashboard.sarvam.ai.
 
-അത് `.env` ഫയലിൽ പേസ്റ്റ് ചെയ്യുക
+ഇത് `.env` ഫയലിൽ പേസ്റ്റ് ചെയ്യുക
 
 ```bash
 SARVAM_API_KEY=your_api_key
 ```
 
-## ഇൻസ്റ്റാൾ
+## ഇൻസ്റ്റാൾ ചെയ്യുക
 
-ഇൻസ്റ്റാൾ ചെയ്യാതെ പ്രവർത്തിപ്പിക്കുക:
+ഇൻസ്റ്റാളേഷൻ ഇല്ലാതെ പ്രവർത്തിപ്പിക്കുക:
 
 ```bash
 npx sarvam-localize
 ```
-
-## കോൺഫിഗ് ഫയൽ
-
-ഒരു കോൺഫിഗ് ഫയൽ സൃഷ്ടിക്കാനോ അപ്ഡേറ്റ് ചെയ്യാനോ `init` പ്രവർത്തിപ്പിക്കുക (ഡിഫോൾട്ട്: `localize.json`).
-
-```jsonc
-{
-	"translate": {
-		"model": "mayura:v1",
-		"dist": "locales",
-		"from": "en-IN",
-		"extension": "json",
-		"to": ["ml-IN", "ta-IN"]
-		// or use: "all": true
-	}
-}
-```
-
-## കമാൻഡുകൾ
-
-### `init`
-
-നിങ്ങളുടെ ലോക്കലൈസേഷൻ വർക്ക്ഫ്ലോയ്ക്കുള്ള ഇന്ററാക്ടീവ് സെറ്റപ്പ്.
-
-ഇത് നിങ്ങളുടെ `translate` കോൺഫിഗ് തയ്യാറാക്കുകയും തുടർന്ന് ഉടൻ തന്നെ `translate` പ്രവർത്തിപ്പിക്കണോ എന്ന് ചോദിക്കുകയും ചെയ്യുന്നു.
-
-```bash
-npx sarvam-localize init
-```
-
-### `translate`
-
-ഒരു സോഴ്സ് ലോക്കേൽ ഫയലിനെ ടാർഗെറ്റ് ലോക്കേൽ ഫയലുകളിലേക്ക് ബാച്ച് ട്രാൻസ്ലേറ്റ് ചെയ്യുന്നു.
-
-```bash
-npx sarvam-localize translate
-npx sarvam-localize translate --from en-IN --to hi-IN ta-IN ml-IN
-npx sarvam-localize translate --from en-IN --all
-npx sarvam-localize translate --from en-IN --all --retranslate
-```
-
-#### ഓപ്ഷനുകൾ
-
-- `--dist <folder>`: ലോക്കേൽ ഡയറക്ടറി (ഡിഫോൾട്ട്: `locales`)
-- `--from <code>`: സോഴ്സ് ലാംഗ്വേജ് കോഡ് (ഡിഫോൾട്ട്: `en-IN`)
-- `--to <code...>`: ടാർഗെറ്റ് ലാംഗ്വേജ് കോഡുകൾ (അറേ)
-- `--all`: പിന്തുണയ്ക്കുന്ന എല്ലാ ടാർഗെറ്റ് ഭാഷകളും ഉൾപ്പെടുത്തുക
-- `--retranslate`: ടാർഗെറ്റിൽ ഇതിനകം മൂല്യങ്ങൾ ഉണ്ടെങ്കിൽ പോലും കീകൾ വീണ്ടും വിവർത്തനം ചെയ്യുക
-- `--extension <json>`: ഫയൽ എക്സ്റ്റൻഷൻ (നിലവിൽ `json` മാത്രം)
-
-### `sync`
-
-ഒരു സോഴ്സ് ഫയലിനെ ഒരു ടാർഗെറ്റ് ഫയലിലേക്ക് വിവർത്തനം ചെയ്യുന്നു.
-
-```bash
-npx sarvam-localize sync --source locales/en-IN.json --target locales/hi-IN.json
-npx sarvam-localize sync --source locales/en-IN.json --target locales/ta-IN.json --retranslate
-```
-
-#### ഓപ്ഷനുകൾ
-
-- `--source <path>`: സോഴ്സ് ലോക്കേൽ ഫയൽ പാത്ത് (ഉദാഹരണത്തിന് `locales/en-IN.json`)
-- `--target <path>`: ടാർഗെറ്റ് ലോക്കേൽ ഫയൽ പാത്ത് (ഉദാഹരണത്തിന് `locales/hi-IN.json`)
-- `--retranslate`: ഇതിനകം വിവർത്തനം ചെയ്ത കീകൾ ഓവർറൈറ്റ് ചെയ്യുക
-
-രണ്ട് ഫയൽ നാമങ്ങളിലും പിന്തുണയ്ക്കുന്ന ലാംഗ്വേജ് കോഡും `.json` എക്സ്റ്റൻഷനും ഉണ്ടായിരിക്കണം.
-
-### ലോക്കേൽ ഫയൽ ഫോർമാറ്റ്
-
-eg: ഇൻപുട്ട് (`en-IN.json`)
-
-വേരിയബിളുകളും നെസ്റ്റഡ് JSON-ഉം പിന്തുണയ്ക്കുന്നു.
-
-```jsonc
-{
-	"title": "Welcome to India",
-	"home": {
-		"greeting": "Hello {{variable}}, how are you?", // React i18next
-		"farewell": "Goodbye {variable}, see you soon!", // Vue i18n, React Intl
-		"thank_you": "Thank you %{variable}, for your support!", // Ruby i18n
-		"cta": "Click here to learn more about {$variable}" // Fluent
-	}
-}
-```
-
-NextJS & next-intl ഉപയോഗിച്ച് നിർമ്മിച്ച [ഡെമോ വെബ്സൈറ്റ്](https://sarvam-localize.vercel.app) കാണുക
-
-### `mayura:v1` പിന്തുണയ്ക്കുന്ന ഭാഷാ കോഡുകൾ
-
-- `en-IN` (English - India)
-- `hi-IN` (Hindi)
-- `bn-IN` (Bengali)
-- `gu-IN` (Gujarati)
-- `kn-IN` (Kannada)
-- `ml-IN` (Malayalam)
-- `mr-IN` (Marathi)
-- `od-IN` (Odia)
-- `pa-IN` (Punjabi)
-- `ta-IN` (Tamil)
-- `te-IN` (Telugu)
-
-### `sarvam-translate:v1` പിന്തുണയ്ക്കുന്ന ഭാഷാ കോഡുകൾ
-
-- മുകളിൽ പറഞ്ഞവയെല്ലാം കൂടാതെ:
-
-- `as-IN` (Assamese)
-- `ur-IN` (Urdu)
-- `ne-IN` (Nepali)
-- `kok-IN` (Konkani)
-- `ks-IN` (Kashmiri)
-- `sd-IN` (Sindhi)
-- `sa-IN` (Sanskrit)
-- `sat-IN` (Santali)
-- `mni-IN` (Manipuri)
-- `brx-IN` (Bodo)
-- `mai-IN` (Maithili)
-- `doi-IN` (Dogri)
-
-### പ്രോജക്റ്റ് ഘടന (സാധാരണയായി)
-
-```text
-locales/
-  en-IN.json
-  hi-IN.json
-  ta-IN.json
-```
-
-## കുറിപ്പുകൾ
-
-- ഒരു ടാർഗെറ്റ് കീ ഇതിനകം നിലവിലുണ്ടെങ്കിൽ, അത് ഡിഫോൾട്ടായി ഒഴിവാക്കപ്പെടും.
-- നിർബന്ധിത അപ്ഡേറ്റുകൾക്കായി `--retranslate` ഉപയോഗിക്കുക.
-- ഡിഫോൾട്ട് കോൺഫിഗ് ഫയൽ നാമം `localize.json` ആണ്.
-- ഒരു കസ്റ്റം കോൺഫിഗ് ഫയൽ ഉപയോഗിക്കാൻ `--config ./custom.json` പാസ് ചെയ്യുക.
-- കോൺഫിഗ് നിലവിലുണ്ടെങ്കിൽ, `init --override` ഉപയോഗിച്ച് അത് അപ്ഡേറ്റ് ചെയ്യാം.

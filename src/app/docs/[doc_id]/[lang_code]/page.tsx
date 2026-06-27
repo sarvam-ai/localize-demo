@@ -8,7 +8,7 @@ type Slug = {
 export async function generateStaticParams(): Promise<Slug[]> {
 	const data: Slug[] = []
 
-	for (const doc of localizeData.docs) {
+	for (const doc of localizeData.translated) {
 		for (const code of doc.languages) {
 			data.push({
 				lang_code: code,
